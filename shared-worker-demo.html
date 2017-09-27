@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>共享worker</title>
+</head>
+<body>
+<section>
+    <input id="input1" type="text">
+</section>
+<script>
+    window.onload = function () {
+
+        // 判断是否支持 worker
+        if (!window.Worker) {
+            console.error('不支持Worker');
+            return;
+        }
+        console.log('支持Worker');
+
+        var sWorker = new SharedWorker();
+    };
+</script>
+</body>
+</html>
