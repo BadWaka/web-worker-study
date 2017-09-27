@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web-worker-demo</title>
+</head>
+<body>
+<section>
+    <input id="input1" type="text">
+</section>
+<script>
+    window.onload = function () {
+
+        // 判断是否支持 worker
+        if (!window.Worker) {
+            console.error('不支持Worker');
+            return;
+        }
+        console.log('支持Worker');
+
+        // 创建 worker
+        var myWorker = new Worker('worker.js');
+        console.log('myWorker', myWorker);
+
+        // 接收传入的参数
+        myWorker.onmessage = function (p1) {
+            console.log('子线程传出来的参数', p1);
+        };
+
+        // 获得输入DOM
+        var input1 = document.querySelector('#input1');
+        // 监听change事件
+        input1.onchange = function (e) {
+            console.log('input1 change', e.target.value);
+            var value = e.target.value;
+            var f1 = function () {
+                console.log('123');
+            };
+            // 给worker发消息
+            myWorker.postMessage([value, {a: 1, b: 2}, 123]);
+        };
+    };
+</script>
+</body>
+</html>
