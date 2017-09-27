@@ -1,7 +1,6 @@
 // 共享 worker
-// port.start();
-console.log('this', this);
-
+var counter = 0;
+var connections = [];
 onconnect = function (e) {
     console.log('主线程传进来的参数 e', e);
     var port = e.ports[0];
@@ -12,3 +11,4 @@ onconnect = function (e) {
         port.postMessage(workerResult);
     }
 };
+port.start();

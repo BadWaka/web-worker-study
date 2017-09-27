@@ -6,7 +6,7 @@
 </head>
 <body>
 <section>
-    <input id="input1" type="text">
+    <button id="btn">给共享worker发消息</button>
 </section>
 <script>
     window.onload = function () {
@@ -20,18 +20,17 @@
 
         var myWorker = new SharedWorker('sharedWorker.js');
         console.log('myWorker', myWorker);
-//        myWorker.port.start();
+        myWorker.port.start();
 
         myWorker.port.onmessage = function (e) {
             console.log('子线程传出来的参数', e);
         };
 
-        var input = document.querySelector('#input1');
-        input.onchange = function () {
-            // 发消息
+        var btn = document.querySelector('#btn');
+        btn.addEventListener('click', function () {
             myWorker.port.postMessage([123, 'aaaa']);
-            console.log('Message posted to worker');
-        }
+            console.log('点击按钮给worker发消息');
+        });
     };
 </script>
 </body>
