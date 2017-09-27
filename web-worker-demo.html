@@ -39,6 +39,9 @@
             // 给worker发消息
             myWorker.postMessage([value, {a: 1, b: 2}, 123]);
         };
+
+        // 手动终止 worker
+//        myWorker.terminate();
     };
 </script>
 </body>
