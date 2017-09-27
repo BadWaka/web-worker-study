@@ -18,7 +18,20 @@
         }
         console.log('支持Worker');
 
-        var sWorker = new SharedWorker();
+        var myWorker = new SharedWorker('sharedWorker.js');
+        console.log('myWorker', myWorker);
+//        myWorker.port.start();
+
+        myWorker.port.onmessage = function (e) {
+            console.log('子线程传出来的参数', e);
+        };
+
+        var input = document.querySelector('#input1');
+        input.onchange = function () {
+            // 发消息
+            myWorker.port.postMessage([123, 'aaaa']);
+            console.log('Message posted to worker');
+        }
     };
 </script>
 </body>
